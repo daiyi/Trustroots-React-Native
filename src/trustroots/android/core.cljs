@@ -8,8 +8,8 @@
             [trustroots.subs]
             [trustroots.shared.pages.inbox :refer [inbox-page]]
             [trustroots.shared.pages.conversation :refer [conversation-page]]
-            [trustroots.shared.pages.login :refer [login-page]]
-            ))
+            [trustroots.shared.pages.login :refer [login-page]]))
+
 
 (def ReactNative (js/require "react-native"))
 (set! js/React ReactNative)
@@ -29,17 +29,17 @@
        [ui/button { :text "Add"
                     :value "add"
                     :raised true
-                    :on-press #(alert "HELLO!")}]
+                    :on-press #(alert "HELLO!")}]])))
 
-       ])))
+
 
 
 (defn root-scene [{navigator :navigator}]
   (let [tab       (subscribe [:get-page])]
     (fn []
      [ui/view { :flex 1
-                :style   (get-in s/styles [:page])
-                }
+                :style   (get-in s/styles [:page])}
+
 ;;      [ui/view {:style (get-in s/styles [:statusbar])}]
 ;;      [ui/toolbar {:title         "Luno"
 ;;                   :icon          "menu"
@@ -50,9 +50,9 @@
 ;;                   :on-icon-press (fn [_]
 ;;                                 (.openDrawer @drawer))}]
       (case (str @tab)
-        ":inbox"        [inbox-page  {:style (get-in s/styles [:pages :main])} ]
-        ":conversation" [conversation-page  {:style (get-in s/styles [:pages :main])} ]
-        ":login"        [login-page {:style (get-in s/styles [:pages :login])} ])])))
+        ":inbox"        [inbox-page  {:style (get-in s/styles [:pages :main])}]
+        ":conversation" [conversation-page  {:style (get-in s/styles [:pages :main])}]
+        ":login"        [login-page {:style (get-in s/styles [:pages :login])}])])))
 
 
 (defn app-root []

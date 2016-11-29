@@ -3,15 +3,15 @@
     [trustroots.helpers :refer [log info debug]]
     [trustroots.fetch-helper :as f :refer [fetch-json]]
     [clojure.string :as s]
-    [re-frame.core :refer [dispatch]]
-  ))
+    [re-frame.core :refer [dispatch]]))
+
 
 ; Api call
 ; ----------------------------------------------------------------------------
 
 (defn signin [& {:keys [user on-success on-error fetch-fn]
-                 :or [fetch-fn f/fetch-json]
-                 }]
+                 :or [fetch-fn f/fetch-json]}]
+
   "Credentials schema is
   {
       username (string): Username or email. ,
@@ -32,38 +32,38 @@
 
 
 (defn inbox [& {:keys [on-success on-error fetch-fn]
-                 :or [fetch-fn f/fetch-json]
-                 }]
+                 :or [fetch-fn f/fetch-json]}]
+
    "On succesful request return object that contains user data and autehtication cookie."
   (let [fetch (if (nil? fetch-fn) f/fetch-json fetch-fn)]
     (fetch
      :method "GET"
      :endpoint :messages
      :on-success on-success
-     :on-error   on-error
-     )))
+     :on-error   on-error)))
+
 
 (defn conversation-with [user-id & {:keys [on-success on-error fetch-fn]
-                :or [fetch-fn f/fetch-json]
-                }]
+                                    :or [fetch-fn f/fetch-json]}]
+
   "On succesful request return object that contains user data and autehtication cookie."
   (let [fetch (if (nil? fetch-fn) f/fetch-json fetch-fn)]
     (fetch
      :method "GET"
      :endpoint :messages
-     :endpoint-path [ user-id ]
+     :endpoint-path [ user-id]
      :on-success on-success
-     :on-error   on-error
-     )))
+     :on-error   on-error)))
+
 
 (defn escape-html [text]
   (s/escape text
             {
              \< "&lt;"
              \> "&gt;"
-             \& "&amp;"
-             })
-  )
+             \& "&amp;"}))
+
+
 
 (defn to-html [text]
   (->>
@@ -73,8 +73,8 @@
 
 (defn send-message-to [to-user-id content &
                        {:keys [on-success on-error fetch-fn]
-                        :or [fetch-fn f/fetch-json]
-                        }]
+                        :or [fetch-fn f/fetch-json]}]
+
   "Send new message schema is:
   {
      content (string): content,
@@ -84,13 +84,11 @@
   "
   (let [
         fetch (if (nil? fetch-fn) f/fetch-json fetch-fn)
-        html-content (to-html content)
-       ]
+        html-content (to-html content)]
+
     (fetch
      :method "POST"
      :endpoint :messages
      :body {:content html-content :userTo to-user-id}
      :on-success on-success
-     :on-error on-error
-     )
-  ))
+     :on-error on-error)))

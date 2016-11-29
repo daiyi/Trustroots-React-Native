@@ -1,9 +1,9 @@
 (ns trustroots.shared.pages.login
-  (:require [reagent.core :as r ]
+  (:require [reagent.core :as r]
             [re-frame.core :refer [subscribe dispatch dispatch-sync]]
             [trustroots.shared.ui :as ui :refer [view text image h1 p]]
-            [trustroots.helpers :refer [log dir get-ref]]
-            ))
+            [trustroots.helpers :refer [log dir get-ref]]))
+
 
 (defonce fields (r/atom {:user nil :pwd nil}))
 
@@ -37,7 +37,7 @@
                                         ; For some reason this is in android avd painfully slow solution
                                         ;:on-change-text  (fn [value] (swap! fields assoc :user value))
                                         ;:value         (:user @fields)
-                    :style {:width 200}} ]
+                    :style {:width 200}}]
          [ui/input {
                     :ref               "password"
                     :placeholder       "Password"
@@ -54,9 +54,9 @@
                                          (dispatch [:login @fields]))
                                         ;:on-change-text  (fn [value] (swap! fields assoc :pwd value))
                                         ;:value           (:pwd @fields)
-                    :style             {:width 200}} ]
+                    :style             {:width 200}}]
 
-         [view {:flex-direction "row" }
+         [view {:flex-direction "row"}
           ;;[ui/button { :text "Reset"
           ;;             :value "login"
           ;;             :raised true

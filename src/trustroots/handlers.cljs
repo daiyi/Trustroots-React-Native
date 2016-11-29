@@ -7,8 +7,8 @@
     [trustroots.helpers :refer [log info debug]]
     [trustroots.db :as db]
     [trustroots.domain.auth :as auth]
-    [trustroots.api :as api]
-    ))
+    [trustroots.api :as api]))
+
 
 ;; -- Middleware ------------------------------------------------------------
 ;; See https://github.com/Day8/re-frame/wiki/Using-Handler-Middleware
@@ -16,10 +16,10 @@
 (defn check-and-throw
   "throw an exception if db doesn't match the schema."
   [a-schema db]
-    (when-let [problems (s/check a-schema db)]
-      (info db)
-      (info problems)
-      (throw (js/Error. (str "Schema check failed: " problems)))))
+  (when-let [problems (s/check a-schema db)]
+    (info db)
+    (info problems)
+    (throw (js/Error. (str "Schema check failed: " problems)))))
 
 (def validate-schema-mw
   (if goog.DEBUG
@@ -109,7 +109,7 @@
   (fn [db user-pwd]
     (let [sign-in api/signin]
       (sign-in :user {:username (:user user-pwd) :password (:pwd user-pwd)}
-               :on-success (fn [user-res] (dispatch [:auth-success (:data user-res)] ))
+               :on-success (fn [user-res] (dispatch [:auth-success (:data user-res)]))
                :on-error
                #(condp = (:type %)
                    :invalid-credentials (dispatch [:auth-fail])
@@ -146,8 +146,8 @@
  (fn [db mode]
    (when-let [toaster (get-in db [:services :toaster])]
             (log toaster)
-            (toaster "You are currently offline" 5000)
-            )
+            (toaster "You are currently offline" 5000))
+
    (assoc db :network-state mode)))
 
 ;; get inbox
@@ -158,12 +158,12 @@
    (let [get-messages api/inbox]
      (get-messages
       :on-success (fn [data]
-                    (dispatch [:inbox/fetch-success (:data data)] ))
+                    (dispatch [:inbox/fetch-success (:data data)]))
               :on-error
               #(condp = (:type %)
                  :invalid-credentials (dispatch [:logout])
                  :network-error       (do (dispatch [:set-offline true])
-                                           (dispatch :inbox/fetch-fail))
+                                          (dispatch :inbox/fetch-fail))
                  (dispatch [:unknown-error])))
 
      db)))
@@ -189,12 +189,12 @@
    (let [get-messages (partial api/conversation-with user-id)]
      (get-messages
       :on-success (fn [data]
-                    (dispatch [:conversation/fetch-success user-id (:data data)] ))
+                    (dispatch [:conversation/fetch-success user-id (:data data)]))
       :on-error
       #(condp = (:type %)
          :invalid-credentials (dispatch [:logout])
          :network-error       (do (dispatch [:set-offline true])
-                                  (dispatch [:conversation/fetch-fail user-id] ))
+                                  (dispatch [:conversation/fetch-fail user-id]))
          (dispatch [:unknown-error])))
 
      db)))
@@ -228,15 +228,15 @@
    (let [send-message (partial api/send-message-to to-user-id content)]
      (send-message
       :on-success (fn [data]
-                    (dispatch [:message/send-to-success to-user-id (:data data)] ))
+                    (dispatch [:message/send-to-success to-user-id (:data data)]))
       :on-error
       (fn [error]
         (log error)
-         (condp = (:type error)
-           :invalid-credentials (dispatch [:logout])
-           :network-error       (do (dispatch [:set-offline true])
-                                  (dispatch [:message/send-to-fail to-user-id content] ))
-           (dispatch [:unknown-error]))))
+        (condp = (:type error)
+          :invalid-credentials (dispatch [:logout])
+          :network-error       (do (dispatch [:set-offline true])
+                                 (dispatch [:message/send-to-fail to-user-id content]))
+          (dispatch [:unknown-error]))))
 
      db)))
 
@@ -262,8 +262,8 @@
       (.-NetInfo)
       (.-isConnected)
       (.fetch)
-      (.done #(dispatch [:set-offline (not %)])))
-  )
+      (.done #(dispatch [:set-offline (not %)]))))
+
 
 (register-handler-for
  :initialize-hardware
@@ -277,13 +277,11 @@
    ;    15000)
    db))
 
-(comment 
+(comment
 
-  (re-frame.core/dispatch [:set-page :inbox] )
+  (re-frame.core/dispatch [:set-page :inbox])
 
   (re-frame.core/dispatch [:inbox/fetch])
 
 
-  (re-frame.core/subscribe [:inbox/get] )
-
-)
+  (re-frame.core/subscribe [:inbox/get]))

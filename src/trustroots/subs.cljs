@@ -2,8 +2,8 @@
   (:require-macros [reagent.ratom   :refer [reaction]])
   (:require [re-frame.core          :refer [register-sub]]
             [trustroots.domain.auth :as auth]
-            [trustroots.helpers :refer [log info debug]]
-            ))
+            [trustroots.helpers :refer [log info debug]]))
+
 
 ; Helpers
 ; ---------------------------------------------------------------
@@ -74,6 +74,4 @@
              %1
              :is-from-someone-else
              (= selected-user
-                (get-in %1 [:userFrom :_id])
-                               ))))
-              )))
+                (get-in %1 [:userFrom :_id]))))))))

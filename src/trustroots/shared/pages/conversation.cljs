@@ -11,15 +11,15 @@
 (defn get-image-url [user]
   (let [source (:avatarSource user)
         id     (:_id user)
-        emailHash (:emailHash user)
-        ]
-  (case (:avatarSource user)
-    "local" (str
-             "https://www.trustroots.org/modules/users/img/profile/uploads/"
-             id
-             "/avatar/32.jpg")
-    "gravatar" (str "https://www.gravatar.com/avatar/" emailHash) 
-    nil )))
+        emailHash (:emailHash user)]
+
+   (case (:avatarSource user)
+     "local" (str
+              "https://www.trustroots.org/modules/users/img/profile/uploads/"
+              id
+              "/avatar/32.jpg")
+     "gravatar" (str "https://www.gravatar.com/avatar/" emailHash)
+     nil)))
 
 (defn list-view-item [message]
   (let [is-someone-else  (:is-from-someone-else message)
@@ -36,23 +36,23 @@
                 :align-items "flex-start"
                 ;;:justify-content "flex-start"
                 ;;:flex-basis 10
-                :margin-top 10
-                }
-        }
+                :margin-top 10}}
+
+
        (when is-me [view {:style {:flex 4 :height 0 :background-color "red"}}])
        [view
         {:style
          {:flex 6
           :background-color bubble-bg
           :border-radius 10
-          :padding 10
-          }
-         }
+          :padding 10}}
+
+
         [ui/html-view {:value (get-in message [:content])}]]
-       (when is-someone-else [view {:style {:flex 4 :height 0 :background-color "blue"}}])
-       ]
-      )
-    ))
+       (when is-someone-else [view {:style {:flex 4 :height 0 :background-color "blue"}}])])))
+
+
+
 
 
 (defn conversation-page [{style :style}]
@@ -66,8 +66,4 @@
                      :align-items "stretch"}}
        [list-view-with-subscription messages list-view-item "Conversation"]
        [view {:style { :height 50 :background-color "yellow" :align-self "flex-end" :flex-direction "row"}}
-        [ui/input {:style {:flex 1 :align-self "flex-start" }}]
-        ]
-      ])))
-
-
+        [ui/input {:style {:flex 1 :align-self "flex-start"}}]]])))
