@@ -17,7 +17,7 @@
              "https://www.trustroots.org/modules/users/img/profile/uploads/"
              id
              "/avatar/32.jpg")
-    "gravatar" (str "https://www.gravatar.com/avatar/" emailHash) 
+    "gravatar" (str "https://www.gravatar.com/avatar/" emailHash)
     nil )))
 
 
@@ -62,7 +62,7 @@
                     :align-items "center"
                     ;:background-color "red"
                      }}
-      
+
        [ui/icon {:name "schedule"}]
        [text {:style{:margin-left 5} } relative-time]
        ]
@@ -87,6 +87,3 @@
                     :raised true
                     :on-press #(dispatch [:logout])}]
       ])))
-
-
-

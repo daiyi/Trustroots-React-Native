@@ -44,11 +44,11 @@
 ;;      [ui/toolbar {:title         "Luno"
 ;;                   :icon          "menu"
 ;;                   :actions       [{:icon    "add-circle"
-;;                                    :onPress (fn [_]
-;;                                                       (show-add-dialog))}]
+;;                                    :onPress (fn [_
+;;                                                       (show-add-dialog)])}]
 ;;                   :style         (get-in s/styles [:toolbar])
-;;                   :on-icon-press (fn [_]
-;;                                 (.openDrawer @drawer))}]
+;;                   :on-icon-press (fn [_])
+;;                                 (.openDrawer @drawer)}
       (case (str @tab)
         ":inbox"        [inbox-page  {:style (get-in s/styles [:pages :main])}]
         ":conversation" [conversation-page  {:style (get-in s/styles [:pages :main])}]

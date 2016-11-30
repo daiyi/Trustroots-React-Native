@@ -33,11 +33,11 @@
     (fn []
       [list-view
        {
+        :style      {:flex 1}
+
         :dataSource (.cloneWithRows data-source (clj->js @row-subscription))
         :render-row (fn[row]
                       (r/create-element
                        (get-row-component list-item-view) #js{:row row}))
         :render-section-header (fn [] (r/as-element [ui/h1 title]))
-        :enableEmptySections true
-        }
-       ])))
+        :enableEmptySections true}])))

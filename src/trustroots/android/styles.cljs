@@ -4,7 +4,7 @@
 ; https://github.com/Trustroots/trustroots/blob/master/modules/core/client/less/global-variables.less
 (def primary-color      "#12b591") ;; Trustroots Green
 (def primary-color-dark "#0f9779") ;; Trustroots Dark Green
-(def secondary-color    "#cd771b") ;; Trustroots Brown"
+(def secondary-color    "#cd771b") ;; Trustroots Brown
 (def body-bg            "#f9f9f9")
 (def brand-gradient-from        "#19e6df")
 (def brand-gradient-to          "#e0a70e")
